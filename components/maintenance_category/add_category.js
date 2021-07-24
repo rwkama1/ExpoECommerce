@@ -1,5 +1,6 @@
 import React,{ Component } from "react";
-import { add_style } from '../../styles/app_styles';
+import { add_style,text_area } from '../../styles/app_styles';
+
 import { 
     TextInput,
     ScrollView,
@@ -9,6 +10,7 @@ import {
      Alert } from 'react-native';
 import APICategory from "../../model/API/apicategory";
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
+import Textarea from "react-native-textarea";
 const bootstrapStyleSheet = new BootstrapStyleSheet();
 const { s, c } = bootstrapStyleSheet;
 export default class Add_category extends Component
@@ -89,9 +91,10 @@ export default class Add_category extends Component
             style={[s.formLabelText]}
             >Description
             </Text>
-               <TextInput 
+               <Textarea 
                 value={this.state.description}
-                style={[s.formControl]}
+                containerStyle={text_area.textareaContainer}
+                style={text_area.textarea}
                onChangeText={(value)=>this.onChangeText('description',value)}
              /> 
 

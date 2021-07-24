@@ -27,9 +27,9 @@ export default class APICategory
           return result;
         
       } 
-      getCategoriesExpression=async()=>
+      getCategoriesExpression=async(lettername)=>
       {
-        const url2=this.url+"getcategories";
+        const url2=this.url+"getcategoriesbyname?pname="+lettername;
           var config = {
             method: 'get',
             url: url2,

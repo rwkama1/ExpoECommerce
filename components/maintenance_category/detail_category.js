@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import { add_style } from '../../styles/app_styles';
+import { add_style,text_area } from '../../styles/app_styles';
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
 const bootstrapStyleSheet = new BootstrapStyleSheet();
 const { s, c } = bootstrapStyleSheet;
@@ -13,6 +13,7 @@ import {
     TouchableOpacity } from 'react-native';
      
 import APICategory from "../../model/API/apicategory";
+import Textarea from "react-native-textarea";
 export default class Detail_Category extends Component
 {
      
@@ -127,15 +128,18 @@ export default class Detail_Category extends Component
             style={[s.formLabelText]}
             >Description
             </Text>
-               <TextInput 
+               <Textarea 
                 value={this.state.description}
-                style={[s.formControl]}
+               containerStyle={text_area.textareaContainer}
+               style={text_area.textarea}
+                // style={[s.formControl]}
                onChangeText={(value)=>this.onChangeText('description',value)}
              /> 
 
            </View>
-           <View style={[s.flexRow,s.flexWrap]}>
-                  <TouchableOpacity
+           <View style={[s.formRow,s.row]}>
+               <View style={[s.formGroup,s.formCol,s.col]}>
+               <TouchableOpacity
                   onPress={this.confirmationUpdateCategory}
                   style={[s.btnTouchable]}
                    >
@@ -144,7 +148,9 @@ export default class Detail_Category extends Component
                    </View>
                   
                   </TouchableOpacity>
-                  <TouchableOpacity
+               </View>
+               <View style={[s.formGroup,s.formCol,s.col]}>
+                    <TouchableOpacity
                   onPress={this.confirmationDeleteCategory}
                   style={[s.btnTouchable]}
                    >
@@ -153,7 +159,7 @@ export default class Detail_Category extends Component
                    </View>
                   
                   </TouchableOpacity>
-            
+              </View>
            </View>
            
            </View>

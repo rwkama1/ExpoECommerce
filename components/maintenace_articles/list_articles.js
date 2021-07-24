@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import {ListItem,SearchBar} from "react-native-elements";
+import {ListItem,Avatar} from "react-native-elements";
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
 const bootstrapStyleSheet = new BootstrapStyleSheet();
 const { s, c } = bootstrapStyleSheet;
@@ -7,41 +7,38 @@ import {
     View,
     ScrollView,
     ActivityIndicator,
-      } from 'react-native';
-import APICategory from "../../model/API/apicategory";
-import { TextInput } from "react-native";
-   //  {/* key={p._name} */}
-          //  {/* ()=>this.clickItem(p._name) */}
-export default class List_categories extends Component
+     TextInput } from 'react-native';
+import APIArticles from "../../model/API/apiarticles";
+export default class List_Articles extends Component
 {
   constructor() {
     super();
     this.state = {
-      categories:[],
+      articles:[],
       name:"",
       loading:true
       };
      }
   
   
- listCategories=()=>
+ listArticles=()=>
  {
-  APICategory.getInstance().getCategories().then(getcategories =>
+  APIArticles.getInstance().getArticles().then(getarticles =>
     { this.setState(
       {
-        categories:getcategories,
+        articles:getarticles,
         loading:false
       }
       );}
     ) 
  }
- searchCategory=(name)=>
+ searchArticles=(name)=>
  {
    this.setState({name:name })
-  APICategory.getInstance().getCategoriesExpression(name).then(getcategories =>
+   APIArticles.getInstance().getArticlesExpression(name).then(getarticles =>
     { this.setState(
       {
-        categories:getcategories,
+        articles:getarticles,
       }
       );
     }
@@ -50,11 +47,11 @@ export default class List_categories extends Component
 
      componentDidMount()
     {
-     this.listCategories();
+     this.listArticles();
     }  
     render()
     {
-      const { name } = this.state;
+      const { barcode } = this.state;
       if(this.state.loading)
       {
           return(
@@ -74,9 +71,9 @@ export default class List_categories extends Component
           <View style={[s.formGroup,s.formCol,s.col4]}>
               <View style={[s.colPadding]} >
                    <TextInput style={[s.formControl]}
-                   value={name}
-                   placeholder="Search Category by Name"
-                   onChangeText={(value)=>this.searchCategory(value)}/>
+                   value={barcode}
+                   placeholder="Search Article by Name"
+                   onChangeText={(value)=>this.searchArticles(value)}/>
               </View>
           
           </View>
@@ -88,13 +85,14 @@ export default class List_categories extends Component
            <ScrollView>   
 
              {              
-                this.state.categories.map(
+                this.state.articles.map(
                   c=>
                   {
                   return(
        
-             <ListItem key={c._name} bottomDivider onPress={()=>this.navigateDetailCategory(c._name)}>
+             <ListItem key={c._barcode} bottomDivider onPress={()=>this.navitgateDetailArticle(c._barcode)}>
                <ListItem.Chevron/>
+               <Avatar source={{uri:c._img}}/>
                 <ListItem.Content>
                       <ListItem.Title>
                              {c._name}   
@@ -117,9 +115,9 @@ export default class List_categories extends Component
      
     
     }
-    navigateDetailCategory=(name)=>
+    navitgateDetailArticle=(barcode)=>
     {
-      this.props.navigation.navigate("DetailCategory",{pname:name});
+      this.props.navigation.navigate("DetailArticle",{barcode:barcode});
     }
 }
 
