@@ -9,6 +9,8 @@ import {
   } from '@react-navigation/drawer';
 import React, { Component } from 'react';
 import { Tab_Articles } from "../maintenace_articles/tab_articles";
+import { Tab_Admins } from "../maintenace_admin/tab_admin";
+import {  Tab_Customer } from "../maintenance_customer/tab_customer";
 export class MyDraw extends Component
 {
  render ()
@@ -16,8 +18,11 @@ export class MyDraw extends Component
   let Drawer = createDrawerNavigator();
    return(
      <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} >
+      
           <Drawer.Screen name="Category Maintenance" component={Tab_Cateogry}/>
           <Drawer.Screen name="Articles Maintenance" component={Tab_Articles}/>
+          <Drawer.Screen name="Admin Maintenance" component={Tab_Admins}/>
+          <Drawer.Screen name="Customer Maintenance" component={Tab_Customer}/>
     </Drawer.Navigator>   )
   
  }

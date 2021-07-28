@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { Component } from 'react';
 import HeaderComponent from "../header/header";
 import {Icon} from "react-native-elements";
-import List_Articles from './list_articles';
-import Add_Article from './add_article';
-import Detail_Article from './detail_article';
+import Add_Customer from './add_customer';
+import Detail_Customer from './detail_customer';
+import List_Customer from './list_customer';
 
-export class Tab_Articles extends Component
+export class Tab_Customer extends Component
 {
   render()
   {
@@ -27,15 +27,14 @@ export class Tab_Articles extends Component
     return(
       <>
      <NavigationContainer independent={true}>
-       <StackDetailArticle/>
+       <StackDetailCustomer/>
      </NavigationContainer>
       </>
     );
     }
     
  }
-
-class CreateTab extends Component
+ class CreateTab extends Component
 {
   render()
   {
@@ -45,16 +44,18 @@ class CreateTab extends Component
       <>
    
       <Tab.Navigator>
-       <Tab.Screen name='List Articles'
-        component={List_Articles} 
+       <Tab.Screen name='List Customers'
+        component={List_Customer} 
         options={{
           tabBarIcon:({color,size})=>(
            <Icon name="list" color={color} size={size}/>
            ),
           }}
         />
-       <Tab.Screen name='Add Article'
-        component={Add_Article} 
+       
+       <Tab.Screen name='Add Customer'
+       
+        component={Add_Customer} 
         options={{
           tabBarIcon:({color,size})=>(
            <Icon name="add" color={color} size={size}/>
@@ -67,23 +68,22 @@ class CreateTab extends Component
   
   }
 }
-
-class StackDetailArticle extends Component
-{
-
-  render()
-  {
-
-  const Stack=createStackNavigator();
-   return(
-      <>
- <Stack.Navigator initialRouteName="Articles">
-  <Stack.Screen name="Articles" component={CreateTab}/>
-  <Stack.Screen name="DetailArticle" component={Detail_Article}/>
- </Stack.Navigator>
-    
-      </>
-  );
-  
-  }
-}
+ class StackDetailCustomer extends Component
+ {
+ 
+   render()
+   {
+ 
+   const Stack=createStackNavigator();
+    return(
+       <>
+  <Stack.Navigator initialRouteName="Customer">
+   <Stack.Screen name="Customer" component={CreateTab}/>
+   <Stack.Screen name="DetailCustomer" component={Detail_Customer}/>
+  </Stack.Navigator>
+     
+       </>
+   );
+   
+   }
+ }

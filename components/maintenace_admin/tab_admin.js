@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { Component } from 'react';
 import HeaderComponent from "../header/header";
 import {Icon} from "react-native-elements";
-import List_Articles from './list_articles';
-import Add_Article from './add_article';
-import Detail_Article from './detail_article';
+import Add_Admin from './add_admin';
+import List_Admins from './list_admins';
+import Detail_Admin from './detail_admin';
 
-export class Tab_Articles extends Component
+export class Tab_Admins extends Component
 {
   render()
   {
@@ -27,15 +27,14 @@ export class Tab_Articles extends Component
     return(
       <>
      <NavigationContainer independent={true}>
-       <StackDetailArticle/>
+       <StackDetailAdmin/>
      </NavigationContainer>
       </>
     );
     }
     
  }
-
-class CreateTab extends Component
+ class CreateTab extends Component
 {
   render()
   {
@@ -45,16 +44,17 @@ class CreateTab extends Component
       <>
    
       <Tab.Navigator>
-       <Tab.Screen name='List Articles'
-        component={List_Articles} 
+       <Tab.Screen name='List Admins'
+        component={List_Admins} 
         options={{
           tabBarIcon:({color,size})=>(
            <Icon name="list" color={color} size={size}/>
            ),
           }}
         />
-       <Tab.Screen name='Add Article'
-        component={Add_Article} 
+    
+       <Tab.Screen name='Add Admin'
+        component={Add_Admin} 
         options={{
           tabBarIcon:({color,size})=>(
            <Icon name="add" color={color} size={size}/>
@@ -67,23 +67,22 @@ class CreateTab extends Component
   
   }
 }
-
-class StackDetailArticle extends Component
-{
-
-  render()
-  {
-
-  const Stack=createStackNavigator();
-   return(
-      <>
- <Stack.Navigator initialRouteName="Articles">
-  <Stack.Screen name="Articles" component={CreateTab}/>
-  <Stack.Screen name="DetailArticle" component={Detail_Article}/>
- </Stack.Navigator>
-    
-      </>
-  );
-  
-  }
-}
+ class StackDetailAdmin extends Component
+ {
+ 
+   render()
+   {
+ 
+   const Stack=createStackNavigator();
+    return(
+       <>
+  <Stack.Navigator initialRouteName="Admins">
+   <Stack.Screen name="Admins" component={CreateTab}/>
+    <Stack.Screen name="DetailAdmin" component={Detail_Admin}/> 
+  </Stack.Navigator>
+     
+       </>
+   );
+   
+   }
+ }

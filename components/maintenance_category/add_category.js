@@ -43,7 +43,7 @@ export default class Add_category extends Component
             }
         )
       }
-    confirmationAddCategory=async()=>
+     confirmationAddCategory=async()=>
     {
         Alert.alert("Add the Category","Are you sure?",
         [

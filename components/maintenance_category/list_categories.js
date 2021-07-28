@@ -47,12 +47,11 @@ export default class List_categories extends Component
     }
     ) 
  }
-
-     componentDidMount()
+ componentDidMount()
     {
      this.listCategories();
     }  
-    render()
+  render()
     {
       const { name } = this.state;
       if(this.state.loading)
@@ -117,7 +116,7 @@ export default class List_categories extends Component
      
     
     }
-    navigateDetailCategory=(name)=>
+ navigateDetailCategory=(name)=>
     {
       this.props.navigation.navigate("DetailCategory",{pname:name});
     }
