@@ -12,34 +12,36 @@ import {
     ActivityIndicator,
     TouchableOpacity } from 'react-native';
 import APIUser from "../../model/API/apiuser";
-import APIAdmin from "../../model/API/apiadmin";
+import APICustomer from "../../model/API/apicustomer";
 
 export default class Detail_Customer extends Component
 {
     constructor() {
         super();
         this.state = {
-         admin:{},
-         idcard:"",
-         password:"",
-         username:"",
-         completename:"",
-         position:"" ,  
+            customer:{},
+            idcard:"",
+            password:"",
+            username:"",
+            completename:"",
+            creditcard:"", 
+            address:"",
          loading:true  
         };
     }
     async componentDidMount()
     {   
         
-        const idcardadmin=this.props.route.params.pidcard;
-        const getadmin=await APIUser.getInstance().getUser(idcardadmin);
+        const idcardcustomer=this.props.route.params.pidcard;
+        const getcustomer=await APIUser.getInstance().getUser(idcardcustomer);
         this.setState({
-            admin:getadmin,
-            idcard:getadmin._identitycard,
-            password:getadmin._password,
-            username:getadmin._username,
-            completename:getadmin._completename,
-            position:getadmin._position,  
+            customer:getcustomer,
+            idcard:getcustomer._identitycard,
+            password:getcustomer._password,
+            username:getcustomer._username,
+            completename:getcustomer._completename,
+            creditcard:getcustomer._creditcardnumber,  
+            address:getcustomer._shippingaddress,  
             loading:false
         });
     }
@@ -51,30 +53,30 @@ export default class Detail_Customer extends Component
           }
       )
     }
-    confirmationUpdateAdmin=async()=>
+    confirmationUpdateCustomer=async()=>
     {
-        Alert.alert("Update the Admin","Are you sure?",
+        Alert.alert("Update the Customer","Are you sure?",
         [
-            {text:"Yes",onPress:this.updateAdmin},
+            {text:"Yes",onPress:this.updateCustomer},
             {text:"No",onPress:()=>{return}}
         ])
     }
-    confirmationDeleteAdmin=async()=>
+    confirmationDeleteCustomer=async()=>
     {
-        Alert.alert("Delete the Admin","Are you sure?",
+        Alert.alert("Delete the Customer","Are you sure?",
         [
-            {text:"Yes",onPress:this.deleteAdmin},
+            {text:"Yes",onPress:this.deleteCustomer},
             {text:"No",onPress:()=>{return}}
         ])
     }
-    updateAdmin=async()=>
+    updateCustomer=async()=>
     {
-        const {idcard,password,username,completename,position}=this.state;
-    const updating=await APIAdmin.getInstance().updateAdmin(idcard,completename,username,password,position)
+        const {idcard,password,username,completename,creditcard,address}=this.state;
+    const updating=await APICustomer.getInstance().updateCustomer(idcard,completename,username,password,address,creditcard)
          if(updating==="Success")
          {
-             Alert.alert(updating,"Admin Updated");
-            this.props.navigation.navigate('List Admins');
+             Alert.alert(updating,"Customer Updated");
+            this.props.navigation.navigate('List Customers');
          }
          else
          {
@@ -83,17 +85,17 @@ export default class Detail_Customer extends Component
          }
 
     } 
-    deleteAdmin=async()=>
+    deleteCustomer=async()=>
     {    
-        const deladmin=await APIAdmin.getInstance().deleteAdmin(this.state.idcard);
-        if(deladmin==="Success")
+        const delcust=await APICustomer.getInstance().deleteCustomer(this.state.idcard);
+        if(delcust==="Success")
         {
-            Alert.alert(deladmin,"Admin deleted");
-           this.props.navigation.navigate('List Admins');
+            Alert.alert(delcust,"Customer deleted");
+           this.props.navigation.navigate('List Customers');
         }
         else
         {
-           Alert.alert("Error",deladmin);
+           Alert.alert("Error",delcust);
           
         }
     }
@@ -167,34 +169,47 @@ export default class Detail_Customer extends Component
            <View style={[s.formGroup]}>
             <Text 
             style={[s.formLabelText]}
-            >Position
+            >Shipping Address
             </Text>
                <TextInput 
-                value={this.state.position}
+                value={this.state.address}
                 style={[s.formControl]}
-               onChangeText={(value)=>this.onChangeText('position',value)}
+                keyboardType="email-address"
+               onChangeText={(value)=>this.onChangeText('address',value)}
              /> 
 
+           </View>
+           <View style={[s.formGroup]}>
+            <Text 
+            style={[s.formLabelText]}
+            >Credit Card
+            </Text>
+               <TextInput 
+                value={this.state.creditcard}
+                style={[s.formControl]}
+                keyboardType="numeric"
+               onChangeText={(value)=>this.onChangeText('creditcard',value)}
+             /> 
            </View>
            <View style={[s.flexRow,s.flexWrap]}>
            <View style={[s.formGroup,s.formCol,s.col]}>
                <TouchableOpacity
-                  onPress={this.confirmationUpdateAdmin}
+                  onPress={this.confirmationUpdateCustomer}
                   style={[s.btnTouchable]}
                    >
                    <View style={[s.btn,s.btnPrimary]}>
-                      <Text style={[s.btnText,s.btnPrimaryText]}>Update Admin</Text> 
+                      <Text style={[s.btnText,s.btnPrimaryText]}>Update Customer</Text> 
                    </View>
                   
                   </TouchableOpacity>
              </View>
              <View style={[s.formGroup,s.formCol,s.col]}>
                     <TouchableOpacity
-                  onPress={this.confirmationDeleteAdmin}
+                  onPress={this.confirmationDeleteCustomer}
                   style={[s.btnTouchable]}
                    >
                    <View style={[s.btn,s.btnDanger]}>
-                      <Text style={[s.btnText,s.btnDangerText]}>Delete Admin</Text> 
+                      <Text style={[s.btnText,s.btnDangerText]}>Delete Customer</Text> 
                    </View>
                   
                   </TouchableOpacity>

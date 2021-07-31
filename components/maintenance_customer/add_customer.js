@@ -10,6 +10,7 @@ import {
      Alert } from 'react-native';
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
 import APIAdmin from "../../model/API/apiadmin";
+import APICustomer from "../../model/API/apicustomer";
 
 const bootstrapStyleSheet = new BootstrapStyleSheet();
 const { s, c } = bootstrapStyleSheet;
@@ -22,7 +23,8 @@ export default class Add_Customer extends Component
         password:"",
         username:"",
         completename:"",
-        position:"" 
+        creditcard:"", 
+        address:""
         
       }
     }
@@ -34,22 +36,22 @@ export default class Add_Customer extends Component
           }
       )
     }
-    confirmationAddAdmin=async()=>
+    confirmationAddCustomer=async()=>
     {
-        Alert.alert("Add the Admin","Are you sure?",
+        Alert.alert("Add the Customer","Are you sure?",
         [
-            {text:"Yes",onPress:this.addnewadmin},
+            {text:"Yes",onPress:this.addnewcustomer},
             {text:"No",onPress:()=>{return}}
         ])
     }
-    addnewadmin=()=>
+    addnewcustomer=()=>
     {       
-     const {idcard,password,username,completename,position}=this.state;
-      APIAdmin.getInstance().addAdmin(idcard,completename,username,password,position).then(adding => {
+     const {idcard,password,username,completename,address,creditcard}=this.state;
+      APICustomer.getInstance().addCustomer(idcard,completename,username,password,address,creditcard).then(adding => {
               if(adding==="Success")
               {
-                Alert.alert(adding,"Admin Added");
-                 this.props.navigation.navigate('List Admins');
+                Alert.alert(adding,"Customer Added");
+                 this.props.navigation.navigate('List Customers');
               }
               else
               {
@@ -112,25 +114,38 @@ export default class Add_Customer extends Component
                onChangeText={(value)=>this.onChangeText('password',value)}
              /> 
            </View>
-           <View style={[s.formGroup]}>
+         <View style={[s.formGroup]}>
             <Text 
             style={[s.formLabelText]}
-            >Position
+            >Shipping Address
             </Text>
                <TextInput 
-                value={this.state.position}
+                value={this.state.address}
                 style={[s.formControl]}
-               onChangeText={(value)=>this.onChangeText('position',value)}
+                keyboardType="email-address"
+               onChangeText={(value)=>this.onChangeText('address',value)}
              /> 
 
            </View>
+           <View style={[s.formGroup]}>
+            <Text 
+            style={[s.formLabelText]}
+            >Credit Card
+            </Text>
+               <TextInput 
+                value={this.state.creditcard}
+                style={[s.formControl]}
+                keyboardType="numeric"
+               onChangeText={(value)=>this.onChangeText('creditcard',value)}
+             /> 
+           </View>
            <View style={[s.flexRow,s.flexWrap]}>
                   <TouchableOpacity
-                  onPress={this.confirmationAddAdmin}
+                  onPress={this.confirmationAddCustomer}
                   style={[s.btnTouchable]}
                    >
                    <View style={[s.btn,s.btnSuccess]}>
-                      <Text style={[s.btnText,s.btnSuccessText]}>Save Admin</Text> 
+                      <Text style={[s.btnText,s.btnSuccessText]}>Save Customer</Text> 
                    </View>
                   
                   </TouchableOpacity>

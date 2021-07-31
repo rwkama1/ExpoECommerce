@@ -25,19 +25,23 @@ export default class APICustomer
           return result;
         
       }
-      addAdmin=async(idcard,name,username,password,position)=>
+      addCustomer=async(idcard,name,username,password,address,creditcard)=>
       {
         try{
-           let url2=this.url+"admin"
+           let url2=this.url+"customer"
            var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
     
-            var raw = JSON.stringify({
+            var raw = JSON.stringify(
+              {
             "idcard":idcard,
             "name":name,
             "username":username,
             "password":password,
-            "position":position});
+            "address":address,
+            "creditcard":creditcard
+          }
+          );
     
             var requestOptions = {
             method: 'POST',
@@ -61,20 +65,23 @@ export default class APICustomer
          
        
       }  
-      updateAdmin=async(idcard,name,username,password,position)=>
+      updateCustomer=async(idcard,name,username,password,address,creditcard)=>
       {
         try{
-           let url2=this.url+"admin"
+           let url2=this.url+"customer"
            var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-    
-            var raw = JSON.stringify({
+
+            var raw = JSON.stringify(
+              {
             "idcard":idcard,
             "name":name,
             "username":username,
             "password":password,
-            "position":position});
-    
+            "address":address,
+            "creditcard":creditcard
+          }
+          );
             var requestOptions = {
             method: 'PUT',
             headers: myHeaders,
@@ -97,9 +104,9 @@ export default class APICustomer
          
        
       } 
-      deleteAdmin=async (idcard)=>
+      deleteCustomer=async (idcard)=>
       {
-        let url2=this.url+"admin"
+        let url2=this.url+"customer"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         

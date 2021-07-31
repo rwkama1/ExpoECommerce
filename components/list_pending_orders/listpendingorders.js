@@ -11,25 +11,24 @@ import {
     Text
       } from 'react-native';
 
-
-import APICustomer from "../../model/API/apicustomer";
-export default class List_Customer extends Component
+import APIOrder from "../../model/API/apiorder";
+export default class List_Pending_Orders extends Component
 {
     constructor() {
         super();
         this.state = {
-          customers:[],
+          orders:[],
           loading:true
           };
          }
       
-    listCustomers=()=>
+    listPendingOrders=()=>
          {
             
-            APICustomer.getInstance().getCustomers().then(getcustomers =>
+          APIOrder.getInstance().getPendingOrders().then(getorders =>
             { this.setState(
               {
-                customers:getcustomers,
+                orders:getorders,
                 loading:false
               }
               );}
@@ -37,11 +36,11 @@ export default class List_Customer extends Component
          }
      componentDidMount()
      {
-       this.listCustomers();
+       this.listPendingOrders();
       }  
-      navigationCustomer=(idcard)=>
+      navigationPendingOrder=(id)=>
         {
-          this.props.navigation.navigate("DetailCustomer",{pidcard:idcard});
+          this.props.navigation.navigate("DetailPendingOrder",{pid:id});
         }
     render()
          {
@@ -61,7 +60,7 @@ export default class List_Customer extends Component
            <View style={[s.flexRow,s.flexWrap]}>
            
                   <TouchableOpacity
-                  onPress={this.listCustomers}
+                  onPress={this.listPendingOrders}
                   style={[s.btnTouchable]}
                    >
                    <View style={[s.btn,s.btnLight]}>
@@ -75,18 +74,18 @@ export default class List_Customer extends Component
                 <ScrollView>   
      
                   {              
-                     this.state.customers.map(
+                     this.state.orders.map(
                        c=>
                        {
                 return(
-                  <ListItem key={c._identitycard} bottomDivider onPress={()=>this.navigationCustomer(c._identitycard)}>
+                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationPendingOrder(c._id)}>
                     <ListItem.Chevron/>
                      <ListItem.Content>
                   <ListItem.Title>
-                         {c._completename}   
+                    Customer: {c._client._identitycard}   
                  </ListItem.Title>
                  <ListItem.Subtitle>
-                         {c._shippingaddress}  
+                         {c._state}  
                  </ListItem.Subtitle>
                 </ListItem.Content>
      
