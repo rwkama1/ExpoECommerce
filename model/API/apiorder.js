@@ -55,7 +55,7 @@ export default class APIOrder
       }
       getCustomerOrders=async(idcard)=>
       {
-        const url2=this.url+"get/getclientorders?idcard="+idcard;
+        const url2=this.url+"get/getclientorders?pidcard="+idcard;
         var config = {
           method: 'post',
           url: url2,

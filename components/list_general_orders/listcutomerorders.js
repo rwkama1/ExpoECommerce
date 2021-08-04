@@ -20,14 +20,26 @@ export default class List_Customer_Orders extends Component
         super();
         this.state = {
           orders:[],
-       
+          idcard:"",
+        loading:true
           };
          }
-      
-    listCustomerOrder=(id)=>
+    listGeneralOrder=()=>
          {
             
-          APIOrder.getInstance().getCustomerOrders(id).then(getorders =>
+          APIOrder.getInstance().getGeneralOrders().then(getorders =>
+            { this.setState(
+              {
+                orders:getorders,
+                loading:false
+              }
+              );}
+            ) 
+         }
+    listCustomerOrder=()=>
+         {
+          const { idcard } = this.state;
+          APIOrder.getInstance().getCustomerOrders(idcard).then(getorders =>
             { this.setState(
               {
                 orders:getorders,
@@ -37,41 +49,52 @@ export default class List_Customer_Orders extends Component
               );}
             ) 
          }
-    // componentDidMount()
-    //  {
-    //    this.listDeliveredOrder();
-    //   }  
+    componentDidMount()
+     {
+       this.listGeneralOrder();
+      }  
     navigationGeneralOrder=(id)=>
         {
           this.props.navigation.navigate("DetailGeneralOrder",{pid:id});
         }
     render()
          {
-  const { idcard } = this.state;
-        //    if(this.state.loading)
-        //    {
-        //        return(
-        //        <View>
-        //            <ActivityIndicator animating={true} size="large" color="#9e9e9e">
+
+           if(this.state.loading)
+           {
+               return(
+               <View>
+                   <ActivityIndicator animating={true} size="large" color="#9e9e9e">
        
-        //            </ActivityIndicator>
-        //        </View>
-        //        )
-        //    }
+                   </ActivityIndicator>
+               </View>
+               )
+           }
          
              return(
                <>
           <View style={[s.formRow,s.row]}>
-          <View style={[s.formGroup,s.formCol,s.col4]}>
+          <View style={[s.formGroup,s.formCol,s.co3]}>
               <View style={[s.colPadding]} >
                    <TextInput style={[s.formControl]}
-                   value={idcard}
-                   placeholder="Search Order by Identity Card"
-                   onChangeText={(value)=>this.listCustomerOrder(value)}/>
+                   value={this.state.idcard}
+                   placeholder="Identity Card"
+                   onChangeText={(value)=>this.setState({idcard:value})}/>
               </View>
           
           </View>
-            
+          <View style={[s.formGroup,s.formCol,s.co3]}>
+          <TouchableOpacity
+                  onPress={this.listCustomerOrder}
+                  style={[s.btnTouchable]}
+                   >
+                   <View style={[s.btn,s.btnLight]}>
+                      <Text style={[s.btnText,s.btnLightText]}>Search Order</Text> 
+                   </View>
+                  
+                  </TouchableOpacity>
+          
+          </View>
             
            </View>
         

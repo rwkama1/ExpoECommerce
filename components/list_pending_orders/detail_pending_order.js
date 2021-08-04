@@ -177,7 +177,7 @@ export default class Detail_Pending_Order extends Component
         }
         </View>
            <View style={[s.flexRow,s.flexWrap]}>
-           <View style={[s.formGroup,s.formCol,s.col]}>
+           <View style={[s.formGroup,s.formCol,s.co3]}>
                <TouchableOpacity
                   onPress={this.confirmationDeliverOrder}
                   style={[s.btnTouchable]}
