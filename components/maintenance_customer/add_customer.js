@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
      Alert } from 'react-native';
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
-import APIAdmin from "../../model/API/apiadmin";
 import APICustomer from "../../model/API/apicustomer";
 
 const bootstrapStyleSheet = new BootstrapStyleSheet();

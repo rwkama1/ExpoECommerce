@@ -16,7 +16,7 @@ import {
 import APIOrder from "../../model/API/apiorder";
 
 
-export default class Detail_Pending_Order extends Component
+export default class Detail_General_Order extends Component
 {
     constructor() {
         super();
@@ -49,30 +49,6 @@ export default class Detail_Pending_Order extends Component
             loading:false
         });
     }
-    confirmationDeliverOrder=async()=>
-    {
-        Alert.alert("Deliver the Order","Are you sure?",
-        [
-            {text:"Yes",onPress:this.deliverOrder},
-            {text:"No",onPress:()=>{return}}
-        ])
-    }
-    deliverOrder=async()=>
-    {
-    const {id}=this.state;
-    const deliver=await APIOrder.getInstance().deliverOrder(id); 
-         if(deliver==="Success")
-         {
-             Alert.alert(deliver,"Order Delivered");
-            this.props.navigation.navigate('List Pending Orders');
-         }
-         else
-         {
-            Alert.alert("Error",deliver);
-               
-         }
-
-    } 
     render()
     {
         if(this.state.loading)
@@ -176,20 +152,7 @@ export default class Detail_Pending_Order extends Component
         )
         }
         </View>
-           <View style={[s.flexRow,s.flexWrap]}>
-           <View style={[s.formGroup,s.formCol,s.col]}>
-               <TouchableOpacity
-                  onPress={this.confirmationDeliverOrder}
-                  style={[s.btnTouchable]}
-                   >
-                   <View style={[s.btn,s.btnPrimary]}>
-                      <Text style={[s.btnText,s.btnPrimaryText]}>Deliver Order</Text> 
-                   </View>
-                  
-                  </TouchableOpacity>
-             </View>
           
-           </View>
         </View>
        </ScrollView>
             </>

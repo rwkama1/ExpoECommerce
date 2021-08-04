@@ -1,3 +1,4 @@
+
 import React,{ Component } from "react";
 import {ListItem} from "react-native-elements";
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
@@ -8,69 +9,72 @@ import {
     ScrollView,
     ActivityIndicator,
     TouchableOpacity,
-    Text
+    Text,
+    TextInput
       } from 'react-native';
 
 import APIOrder from "../../model/API/apiorder";
-export default class List_Pending_Orders extends Component
+export default class List_Customer_Orders extends Component
 {
     constructor() {
         super();
         this.state = {
           orders:[],
-          loading:true
+       
           };
          }
       
-    listPendingOrders=()=>
+    listCustomerOrder=(id)=>
          {
             
-          APIOrder.getInstance().getPendingOrders().then(getorders =>
+          APIOrder.getInstance().getCustomerOrders(id).then(getorders =>
             { this.setState(
               {
                 orders:getorders,
-                loading:false
+              
+            
               }
               );}
             ) 
          }
-    componentDidMount()
-     {
-       this.listPendingOrders();
-      }  
-    navigationPendingOrder=(id)=>
+    // componentDidMount()
+    //  {
+    //    this.listDeliveredOrder();
+    //   }  
+    navigationGeneralOrder=(id)=>
         {
-          this.props.navigation.navigate("DetailPendingOrder",{pid:id});
+          this.props.navigation.navigate("DetailGeneralOrder",{pid:id});
         }
     render()
          {
-           if(this.state.loading)
-           {
-               return(
-               <View>
-                   <ActivityIndicator animating={true} size="large" color="#9e9e9e">
+  const { idcard } = this.state;
+        //    if(this.state.loading)
+        //    {
+        //        return(
+        //        <View>
+        //            <ActivityIndicator animating={true} size="large" color="#9e9e9e">
        
-                   </ActivityIndicator>
-               </View>
-               )
-           }
+        //            </ActivityIndicator>
+        //        </View>
+        //        )
+        //    }
          
              return(
                <>
-           <View style={[s.flexRow,s.flexWrap]}>
-           
-                  <TouchableOpacity
-                  onPress={this.listPendingOrders}
-                  style={[s.btnTouchable]}
-                   >
-                   <View style={[s.btn,s.btnLight]}>
-                      <Text style={[s.btnText,s.btnLightText]}>Update List</Text> 
-                   </View>
-                  
-                  </TouchableOpacity>
+          <View style={[s.formRow,s.row]}>
+          <View style={[s.formGroup,s.formCol,s.col4]}>
+              <View style={[s.colPadding]} >
+                   <TextInput style={[s.formControl]}
+                   value={idcard}
+                   placeholder="Search Order by Identity Card"
+                   onChangeText={(value)=>this.listCustomerOrder(value)}/>
+              </View>
+          
+          </View>
             
-           
+            
            </View>
+        
                 <ScrollView>   
      
                   {              
@@ -78,7 +82,7 @@ export default class List_Pending_Orders extends Component
                        c=>
                        {
                 return(
-                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationPendingOrder(c._id)}>
+                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationGeneralOrder(c._id)}>
                     <ListItem.Chevron/>
                      <ListItem.Content>
                   <ListItem.Title>

@@ -1,3 +1,4 @@
+
 import React,{ Component } from "react";
 import {ListItem} from "react-native-elements";
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
@@ -12,7 +13,7 @@ import {
       } from 'react-native';
 
 import APIOrder from "../../model/API/apiorder";
-export default class List_Pending_Orders extends Component
+export default class List_General_Orders extends Component
 {
     constructor() {
         super();
@@ -22,10 +23,10 @@ export default class List_Pending_Orders extends Component
           };
          }
       
-    listPendingOrders=()=>
+    listGeneralOrder=()=>
          {
             
-          APIOrder.getInstance().getPendingOrders().then(getorders =>
+          APIOrder.getInstance().getGeneralOrders().then(getorders =>
             { this.setState(
               {
                 orders:getorders,
@@ -36,11 +37,11 @@ export default class List_Pending_Orders extends Component
          }
     componentDidMount()
      {
-       this.listPendingOrders();
+       this.listGeneralOrder();
       }  
-    navigationPendingOrder=(id)=>
+    navigationGeneralOrder=(id)=>
         {
-          this.props.navigation.navigate("DetailPendingOrder",{pid:id});
+          this.props.navigation.navigate("DetailGeneralOrder",{pid:id});
         }
     render()
          {
@@ -78,7 +79,7 @@ export default class List_Pending_Orders extends Component
                        c=>
                        {
                 return(
-                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationPendingOrder(c._id)}>
+                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationGeneralOrder(c._id)}>
                     <ListItem.Chevron/>
                      <ListItem.Content>
                   <ListItem.Title>
