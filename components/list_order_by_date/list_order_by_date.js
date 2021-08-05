@@ -2,6 +2,7 @@
 import React,{ Component } from "react";
 import {ListItem} from "react-native-elements";
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
+
 const bootstrapStyleSheet = new BootstrapStyleSheet();
 const { s, c } = bootstrapStyleSheet;
 import {  
@@ -14,48 +15,32 @@ import {
       } from 'react-native';
 
 import APIOrder from "../../model/API/apiorder";
-export default class List_Customer_Orders extends Component
+export default class List_Order_by_date extends Component
 {
     constructor() {
         super();
         this.state = {
           orders:[],
-          idcard:"",
-        loading:true
+          date1:"",
+          date2:"",
+     
           };
          }
-    listGeneralOrder=()=>
+   
+    listorderbydate=()=>
          {
-            
-          APIOrder.getInstance().getGeneralOrders().then(getorders =>
+      const { date1,date2 } = this.state;
+          APIOrder.getInstance().getOrderbydates(date1,date2).then(getorders =>
             { this.setState(
               {
                 orders:getorders,
-                loading:false
               }
               );}
             ) 
-         }
-    listCustomerOrder=()=>
-         {
-          const { idcard } = this.state;
-          APIOrder.getInstance().getCustomerOrders(idcard).then(getorders =>
-            { this.setState(
-              {
-                orders:getorders,
-              
-            
-              }
-              );}
-            ) 
-         }
-    componentDidMount()
-     {
-       this.listGeneralOrder();
-      }  
-    navigationGeneralOrder=(id)=>
+         } 
+    navigationDateOrder=(id)=>
         {
-          this.props.navigation.navigate("DetailGeneralOrder",{pid:id});
+          this.props.navigation.navigate("DetailDateOrder",{pid:id});
         }
     render()
          {
@@ -76,17 +61,33 @@ export default class List_Customer_Orders extends Component
           <View style={[s.formRow,s.row]}>
           <View style={[s.formGroup,s.formCol,s.co3]}>
               <View style={[s.colPadding]} >
+             
                    <TextInput style={[s.formControl]}
-                   value={this.state.idcard}
+                   value={this.state.date1}
                    keyboardType="numeric"
-                   placeholder="Identity Card"
-                   onChangeText={(value)=>this.setState({idcard:value})}/>
+                   placeholder="First Date (YYYY-MM-DD)"
+                   onChangeText={(value)=>this.setState({date1:value})}/>
+            
+              </View>
+          
+          </View>
+          <View style={[s.formGroup,s.formCol,s.co3]}>
+              <View style={[s.colPadding]} >
+               
+                  
+              <TextInput style={[s.formControl]}
+                   value={this.state.date2}
+                   keyboardType="numeric"
+
+                   placeholder="Second Date (YYYY-MM-DD)"
+                   onChangeText={(value)=>this.setState({date2:value})}/>
+                 
               </View>
           
           </View>
           <View style={[s.formGroup,s.formCol,s.co3]}>
           <TouchableOpacity
-                  onPress={this.listCustomerOrder}
+                  onPress={this.listorderbydate}
                   style={[s.btnTouchable]}
                    >
                    <View style={[s.btn,s.btnLight]}>
@@ -106,15 +107,23 @@ export default class List_Customer_Orders extends Component
                        c=>
                        {
                 return(
-                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationGeneralOrder(c._id)}>
+                  <ListItem key={c._id} bottomDivider onPress={()=>this.navigationDateOrder(c._id)}>
                     <ListItem.Chevron/>
                      <ListItem.Content>
+                      
                   <ListItem.Title>
-                    Customer: {c._client._identitycard}   
+                    Date: {c._date}   
                  </ListItem.Title>
                  <ListItem.Subtitle>
-                         {c._state}  
+                      Customer:  {c._client._completename}  
                  </ListItem.Subtitle>
+                 <ListItem.Subtitle>
+                 Delivery Address: {c._client._shippingaddress}  
+                 </ListItem.Subtitle>
+                 <ListItem.Subtitle>
+                   Quantity Total Articles:  {c._listOrderDetails.length}  
+                 </ListItem.Subtitle>
+
                 </ListItem.Content>
      
                   </ListItem>

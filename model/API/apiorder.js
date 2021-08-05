@@ -86,6 +86,24 @@ export default class APIOrder
           return e.message;
         }
       }
+      getOrderbydates=async(date1,date2)=>
+      {
+        const url2=this.url+"get/getordersbydate";
+        var data = JSON.stringify({"datei":date1,"datef":date2});
+        var config = {
+          method: 'post',
+          url: url2,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+
+          const response =await axios(config);
+          const result=await response.data;
+          return result;
+        
+      }
       deliverOrder=async(id)=>
       {
        
