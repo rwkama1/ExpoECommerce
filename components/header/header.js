@@ -47,4 +47,4 @@ export default class HeaderComponent extends Component
   }
 
 }
-// { icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } 
+

@@ -14,9 +14,7 @@ import {  Tab_Customer } from "../maintenance_customer/tab_customer";
 import { Tab_Pendingorders } from "../list_pending_orders/tab_pendingorders";
 import { Tab_generalorders } from "../list_general_orders/tab_generalorders";
 import { Tab_Order_date } from "../list_order_by_date/tab_date_order";
-
-
-
+import Login from "../login/login";
 
 
 
@@ -27,7 +25,7 @@ export class MyDraw extends Component
   let Drawer = createDrawerNavigator();
    return(
      <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} >
-      
+    
           <Drawer.Screen name="Category Maintenance" component={Tab_Cateogry}/>
           <Drawer.Screen name="Articles Maintenance" component={Tab_Articles}/>
           <Drawer.Screen name="Admin Maintenance" component={Tab_Admins}/>

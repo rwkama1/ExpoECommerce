@@ -110,3 +110,14 @@ const { s, c } = bootstrapStyleSheet;
       elevation: 5
     },
   });
+  export const login = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 100
+    },
+
+    
+
+  });
