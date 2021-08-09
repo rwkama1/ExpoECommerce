@@ -1,40 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
-import {  createStackNavigator} from "@react-navigation/stack";
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { Component } from 'react';
-import HeaderComponent from "../header/header";
+
 import {Icon} from "react-native-elements";
 import Add_Customer from './add_customer';
-import Detail_Customer from './detail_customer';
+
 import List_Customer from './list_customer';
 
-export class Tab_Customer extends Component
-{
-  render()
-  {
-    return(
-      <>
-      <HeaderComponent navigation={this.props.navigation} ></HeaderComponent>
-      <StackNavigation/> 
-     </>
-    )
-  }
- }
- class  StackNavigation extends Component
- {
-  render()
-  {
-    return(
-      <>
-     <NavigationContainer independent={true}>
-       <StackDetailCustomer/>
-     </NavigationContainer>
-      </>
-    );
-    }
-    
- }
- class CreateTab extends Component
+
+ export class CreateTabCustomer extends Component
 {
   render()
   {
@@ -68,22 +42,3 @@ export class Tab_Customer extends Component
   
   }
 }
- class StackDetailCustomer extends Component
- {
- 
-   render()
-   {
- 
-   const Stack=createStackNavigator();
-    return(
-       <>
-  <Stack.Navigator initialRouteName="Customer">
-   <Stack.Screen name="Customer" component={CreateTab}/>
-   <Stack.Screen name="DetailCustomer" component={Detail_Customer}/>
-  </Stack.Navigator>
-     
-       </>
-   );
-   
-   }
- }

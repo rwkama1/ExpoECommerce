@@ -40,7 +40,7 @@ export default class List_Order_by_date extends Component
          } 
     navigationDateOrder=(id)=>
         {
-          this.props.navigation.navigate("DetailDateOrder",{pid:id});
+          this.props.navigation.navigate("DetailGeneralOrder",{pid:id});
         }
     render()
          {

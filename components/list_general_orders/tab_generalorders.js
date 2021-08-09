@@ -10,34 +10,7 @@ import {Icon} from "react-native-elements";
 import List_Customer_Orders from './listcutomerorders';
 
 
-
-export class Tab_generalorders extends Component
-{
-  render()
-  {
-    return(
-      <>
-      <HeaderComponent navigation={this.props.navigation} ></HeaderComponent>
-      <StackNavigation/> 
-     </>
-    )
-  }
- }
- class  StackNavigation extends Component
- {
-  render()
-  {
-    return(
-      <>
-     <NavigationContainer independent={true}>
-       <StackDetailGeneralOrders/>
-     </NavigationContainer>
-      </>
-    );
-    }
-    
- }
- class CreateTabOrder extends Component
+ export class CreateTabGeneralOrder extends Component
  {
    render()
    {
@@ -74,26 +47,6 @@ export class Tab_generalorders extends Component
 
       </Tab.Navigator>
  
-       </>
-   );
-   
-   }
- }
- class StackDetailGeneralOrders extends Component
- {
- 
-   render()
-   {
- 
-   const Stack=createStackNavigator();
-    return(
-       <>
-       
-  <Stack.Navigator initialRouteName="List Orders">
-   <Stack.Screen name="List Orders" component={CreateTabOrder}/>
-  <Stack.Screen name="DetailGeneralOrder" component={Detail_General_Order}/>   
-  </Stack.Navigator>
-     
        </>
    );
    

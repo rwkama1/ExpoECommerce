@@ -37,7 +37,7 @@ export default class Login extends Component
            APIUser.getInstance().login(username,password).then(login => {
                    if(login.bool===true)
                    {
-                      this.props.navigation.navigate('Maintenance');
+                      this.props.navigation.navigate('Home');
                    }
                    if(login.bool===false)
                    {
